@@ -1,7 +1,33 @@
 'use client';
 
 import { useState } from 'react';
-import { Calendar, Clock, Phone, User, MessageCircle } from 'lucide-react';
+import { Calendar, Clock, Phone, User, MessageCircle, ChevronDown } from 'lucide-react';
+
+// Nomi dei giorni in albanese
+const daysAlbanian = ['E diel', 'E hënë', 'E martë', 'E mërkurë', 'E enjte', 'E premte', 'E shtunë'];
+const monthsAlbanian = ['Janar', 'Shkurt', 'Mars', 'Prill', 'Maj', 'Qershor', 'Korrik', 'Gusht', 'Shtator', 'Tetor', 'Nëntor', 'Dhjetor'];
+
+// Genera le date disponibili per i prossimi 30 giorni
+function generateDateOptions() {
+    const options = [];
+    const today = new Date();
+
+    for (let i = 1; i <= 30; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+
+        const dayName = daysAlbanian[date.getDay()];
+        const day = date.getDate();
+        const month = monthsAlbanian[date.getMonth()];
+
+        const value = date.toISOString().split('T')[0];
+        const label = `${dayName}, ${day} ${month}`;
+
+        options.push({ value, label });
+    }
+
+    return options;
+}
 
 export default function RezervoPage() {
     const [formData, setFormData] = useState({
@@ -13,6 +39,8 @@ export default function RezervoPage() {
         notes: ''
     });
 
+    const dateOptions = generateDateOptions();
+
     const timeSlots = [
         '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
         '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'
@@ -23,13 +51,12 @@ export default function RezervoPage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Format date nicely
+        // Format date nicely in Albanian
         const dateObj = new Date(formData.date);
-        const formattedDate = dateObj.toLocaleDateString('sq-AL', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long'
-        });
+        const dayName = daysAlbanian[dateObj.getDay()];
+        const day = dateObj.getDate();
+        const month = monthsAlbanian[dateObj.getMonth()];
+        const formattedDate = `${dayName}, ${day} ${month}`;
 
         // Build WhatsApp message
         const message = `Përshëndetje! 👋
@@ -46,7 +73,7 @@ Doja të rezervoja një tavolinë:
 Faleminderit!`;
 
         // Open WhatsApp with pre-filled message
-        const phoneNumber = '35569123456';
+        const phoneNumber = '393420587770';
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
     };
@@ -57,16 +84,6 @@ Faleminderit!`;
             [e.target.name]: e.target.value
         }));
     };
-
-    // Get tomorrow's date as minimum
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const minDate = tomorrow.toISOString().split('T')[0];
-
-    // Max date (30 days from now)
-    const maxDate = new Date();
-    maxDate.setDate(maxDate.getDate() + 30);
-    const maxDateStr = maxDate.toISOString().split('T')[0];
 
     return (
         <div className="min-h-screen bg-black pt-24 pb-12">
@@ -125,23 +142,28 @@ Faleminderit!`;
 
                         {/* Date & Time Row */}
                         <div className="grid grid-cols-2 gap-4">
-                            {/* Date */}
+                            {/* Date Dropdown */}
                             <div>
                                 <label className="block text-sm text-gray-400 mb-2 uppercase tracking-wider">
                                     Data
                                 </label>
                                 <div className="relative">
                                     <Calendar size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-                                    <input
-                                        type="date"
+                                    <select
                                         name="date"
                                         value={formData.date}
                                         onChange={handleChange}
                                         required
-                                        min={minDate}
-                                        max={maxDateStr}
-                                        className="w-full bg-black/50 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-gold-500 transition-colors appearance-none cursor-pointer"
-                                    />
+                                        className="w-full bg-black/50 border border-white/10 rounded-xl py-4 pl-12 pr-10 text-white focus:outline-none focus:border-gold-500 transition-colors appearance-none cursor-pointer"
+                                    >
+                                        <option value="" disabled>Zgjidh datën</option>
+                                        {dateOptions.map(option => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
                                 </div>
                             </div>
 
@@ -157,13 +179,14 @@ Faleminderit!`;
                                         value={formData.time}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-black/50 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-gold-500 transition-colors appearance-none cursor-pointer"
+                                        className="w-full bg-black/50 border border-white/10 rounded-xl py-4 pl-12 pr-10 text-white focus:outline-none focus:border-gold-500 transition-colors appearance-none cursor-pointer"
                                     >
-                                        <option value="" disabled>Zgjidh</option>
+                                        <option value="" disabled>Zgjidh orën</option>
                                         {timeSlots.map(slot => (
                                             <option key={slot} value={slot}>{slot}</option>
                                         ))}
                                     </select>
+                                    <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
                                 </div>
                             </div>
                         </div>

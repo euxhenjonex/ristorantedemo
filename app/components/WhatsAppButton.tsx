@@ -3,7 +3,7 @@
 import { MessageCircle } from 'lucide-react';
 
 export default function WhatsAppButton() {
-    const phoneNumber = '35569123456';
+    const phoneNumber = '393420587770';
     const message = encodeURIComponent('Përshëndetje! Doja të rezervoja një tavolinë.');
 
     return (
