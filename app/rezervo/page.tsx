@@ -59,16 +59,16 @@ export default function RezervoPage() {
         const formattedDate = `${dayName}, ${day} ${month}`;
 
         // Build WhatsApp message
-        const message = `Përshëndetje! 👋
+        const message = `Përshëndetje!
 
 Doja të rezervoja një tavolinë:
 
-📅 Data: ${formattedDate}
-🕐 Ora: ${formData.time}
-👥 Persona: ${formData.guests}
-👤 Emri: ${formData.name}
-📞 Tel: ${formData.phone}${formData.notes ? `
-📝 Shënim: ${formData.notes}` : ''}
+• Data: ${formattedDate}
+• Ora: ${formData.time}
+• Persona: ${formData.guests}
+• Emri: ${formData.name}
+• Tel: ${formData.phone}${formData.notes ? `
+• Shënim: ${formData.notes}` : ''}
 
 Faleminderit!`;
 
