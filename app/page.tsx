@@ -1,65 +1,188 @@
-import Image from "next/image";
+import Hero from './components/Hero';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Star, Utensils, Wine, Clock } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <Hero />
+
+      {/* Quick Features - chiaro in 5 secondi */}
+      <section className="py-12 bg-zinc-950 border-b border-white/5">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto text-center">
+            <div className="flex flex-col items-center gap-2">
+              <Utensils size={24} className="text-gold-500" />
+              <span className="text-xs md:text-sm text-gray-400">Kuzhinë Italiane</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Wine size={24} className="text-gold-500" />
+              <span className="text-xs md:text-sm text-gray-400">Verëra të Zgjedhura</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Clock size={24} className="text-gold-500" />
+              <span className="text-xs md:text-sm text-gray-400">Çdo Ditë 12-23</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience / Promo Section */}
+      <section className="py-20 md:py-28 bg-black">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6 order-2 md:order-1">
+              <h2 className="text-3xl md:text-5xl font-serif text-white">
+                Pjata të kuruara me <span className="text-gold-500 italic">Pasion</span>
+              </h2>
+              <p className="text-gray-400 text-base md:text-lg leading-relaxed">
+                Çdo pjatë në Bistro Tirana është një vepër arti. Ingredientë të freskët, receta tradicionale me një prekje moderne.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Link
+                  href="/menu"
+                  className="text-gold-500 border border-gold-500 px-6 py-3 uppercase tracking-widest text-sm hover:bg-gold-500 hover:text-black transition-all text-center"
+                >
+                  Shiko Menunë
+                </Link>
+                <Link
+                  href="/rezervo"
+                  className="text-white border border-white/30 px-6 py-3 uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-all text-center"
+                >
+                  Rezervo Tani
+                </Link>
+              </div>
+            </div>
+            <div className="relative order-1 md:order-2">
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
+                <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
+                  <Image
+                    src="/menu-item-1.png"
+                    alt="Burrata & Prosciutto"
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                </div>
+                <div className="relative aspect-[3/4] rounded-lg overflow-hidden translate-y-8">
+                  <Image
+                    src="/menu-item-3.png"
+                    alt="Tagliata Viçi"
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="py-16 md:py-20 bg-zinc-950">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-serif text-white mb-3">
+              Galeria <span className="text-gold-500 italic">Jonë</span>
+            </h2>
+            <p className="text-gray-500 text-sm">Pamje nga kuzhina dhe ambienti</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            <div className="relative aspect-square rounded-lg overflow-hidden group">
+              <Image
+                src="/menu-item-1.png"
+                alt="Piatti Bistro Tirana"
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                sizes="(max-width: 768px) 50vw, 25vw"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+            </div>
+            <div className="relative aspect-square rounded-lg overflow-hidden group">
+              <Image
+                src="/menu-item-2.png"
+                alt="Piatti Bistro Tirana"
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                sizes="(max-width: 768px) 50vw, 25vw"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+            </div>
+            <div className="relative aspect-square rounded-lg overflow-hidden group">
+              <Image
+                src="/menu-item-3.png"
+                alt="Piatti Bistro Tirana"
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                sizes="(max-width: 768px) 50vw, 25vw"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+            </div>
+            <div className="relative aspect-square rounded-lg overflow-hidden group">
+              <Image
+                src="/menu-item-4.png"
+                alt="Piatti Bistro Tirana"
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                sizes="(max-width: 768px) 50vw, 25vw"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className="py-20 md:py-24 bg-zinc-900 border-t border-white/5">
+        <div className="container mx-auto px-4 text-center">
+          <div className="flex justify-center gap-1 mb-6 text-gold-500">
+            <Star size={20} fill="currentColor" />
+            <Star size={20} fill="currentColor" />
+            <Star size={20} fill="currentColor" />
+            <Star size={20} fill="currentColor" />
+            <Star size={20} fill="currentColor" />
+          </div>
+          <p className="text-gold-500 text-sm uppercase tracking-widest mb-4">4.9 në Google Reviews</p>
+          <h3 className="text-xl md:text-3xl font-serif text-white mb-6 max-w-2xl mx-auto leading-relaxed">
+            &ldquo;Ushqim i shkëlqyer dhe shërbim fantastik. Vendi ideal për një darkë romantike në Tiranë.&rdquo;
+          </h3>
+          <p className="text-gray-500 text-sm mb-10">— Arta M.</p>
+
+          <a
+            href="https://google.com/maps"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-white border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all text-sm"
+          >
+            <Star size={16} />
+            <span>Lini një recensione</span>
+          </a>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-b from-black to-zinc-950">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">
+            Gati për një <span className="text-gold-500 italic">përvojë</span> të veçantë?
+          </h2>
+          <p className="text-gray-400 mb-8 max-w-md mx-auto">
+            Rezervoni tavolinën tuaj online në vetëm disa sekonda.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/rezervo"
+            className="inline-block bg-gold-500 text-black px-10 py-4 uppercase tracking-widest font-bold text-sm hover:bg-gold-400 transition-all shadow-[0_0_30px_rgba(204,153,38,0.3)]"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Rezervo Tavolinë
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
