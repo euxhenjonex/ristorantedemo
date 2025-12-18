@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Calendar, Clock, Users, Phone, User, CheckCircle, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, Phone, User, MessageCircle } from 'lucide-react';
 
 export default function RezervoPage() {
     const [formData, setFormData] = useState({
@@ -12,8 +12,6 @@ export default function RezervoPage() {
         guests: '2',
         notes: ''
     });
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const timeSlots = [
         '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
@@ -22,15 +20,35 @@ export default function RezervoPage() {
 
     const guestOptions = ['1', '2', '3', '4', '5', '6', '7', '8+'];
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Format date nicely
+        const dateObj = new Date(formData.date);
+        const formattedDate = dateObj.toLocaleDateString('sq-AL', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long'
+        });
 
-        setIsSubmitting(false);
-        setIsSubmitted(true);
+        // Build WhatsApp message
+        const message = `Përshëndetje! 👋
+
+Doja të rezervoja një tavolinë:
+
+📅 Data: ${formattedDate}
+🕐 Ora: ${formData.time}
+👥 Persona: ${formData.guests}
+👤 Emri: ${formData.name}
+📞 Tel: ${formData.phone}${formData.notes ? `
+📝 Shënim: ${formData.notes}` : ''}
+
+Faleminderit!`;
+
+        // Open WhatsApp with pre-filled message
+        const phoneNumber = '35569123456';
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -49,52 +67,6 @@ export default function RezervoPage() {
     const maxDate = new Date();
     maxDate.setDate(maxDate.getDate() + 30);
     const maxDateStr = maxDate.toISOString().split('T')[0];
-
-    if (isSubmitted) {
-        return (
-            <div className="min-h-screen bg-black pt-24 pb-12 flex items-center justify-center">
-                <div className="container mx-auto px-4">
-                    <div className="max-w-lg mx-auto text-center animate-fade-in-up">
-                        <div className="w-20 h-20 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-8">
-                            <CheckCircle size={40} className="text-black" />
-                        </div>
-                        <h1 className="text-3xl md:text-4xl font-serif text-white mb-4">
-                            Rezervimi u Konfirmua!
-                        </h1>
-                        <p className="text-gray-400 mb-8">
-                            Faleminderit {formData.name}! Do t&apos;ju kontaktojmë në numrin {formData.phone} për të konfirmuar rezervimin tuaj.
-                        </p>
-
-                        <div className="bg-zinc-900 border border-white/10 rounded-2xl p-6 mb-8">
-                            <h3 className="text-gold-500 uppercase tracking-widest text-xs mb-4">Detajet e Rezervimit</h3>
-                            <div className="grid grid-cols-3 gap-4 text-center">
-                                <div>
-                                    <Calendar size={20} className="text-gold-500 mx-auto mb-2" />
-                                    <p className="text-white text-sm">{new Date(formData.date).toLocaleDateString('sq-AL', { day: 'numeric', month: 'short' })}</p>
-                                </div>
-                                <div>
-                                    <Clock size={20} className="text-gold-500 mx-auto mb-2" />
-                                    <p className="text-white text-sm">{formData.time}</p>
-                                </div>
-                                <div>
-                                    <Users size={20} className="text-gold-500 mx-auto mb-2" />
-                                    <p className="text-white text-sm">{formData.guests} persona</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a
-                            href="/"
-                            className="inline-flex items-center gap-2 text-gold-500 hover:text-gold-400 transition-colors"
-                        >
-                            <span>Kthehu në faqen kryesore</span>
-                            <ArrowRight size={16} />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="min-h-screen bg-black pt-24 pb-12">
@@ -237,23 +209,16 @@ export default function RezervoPage() {
                         {/* Submit */}
                         <button
                             type="submit"
-                            disabled={isSubmitting}
-                            className="w-full bg-gold-500 text-black py-4 rounded-xl uppercase tracking-widest font-bold text-sm hover:bg-gold-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            className="w-full bg-[#25D366] text-white py-4 rounded-xl uppercase tracking-widest font-bold text-sm hover:bg-[#20bd5a] transition-all flex items-center justify-center gap-3"
                         >
-                            {isSubmitting ? (
-                                <>
-                                    <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                                    <span>Duke dërguar...</span>
-                                </>
-                            ) : (
-                                <span>Konfirmo Rezervimin</span>
-                            )}
+                            <MessageCircle size={20} fill="currentColor" />
+                            <span>Dërgo në WhatsApp</span>
                         </button>
                     </div>
 
                     {/* Info */}
-                    <p className="text-center text-gray-600 text-xs mt-6">
-                        Do t&apos;ju kontaktojmë brenda 30 minutave për të konfirmuar rezervimin.
+                    <p className="text-center text-gray-500 text-xs mt-6">
+                        Plotësoni formularin dhe do t&apos;ju hapet WhatsApp me mesazhin gati.
                     </p>
                 </form>
             </div>
