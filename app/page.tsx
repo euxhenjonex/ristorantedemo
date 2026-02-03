@@ -1,186 +1,154 @@
 import Hero from './components/Hero';
-import Image from 'next/image';
+import MenuHighlights from './components/MenuHighlights';
+import AtmosphereGallery from './components/AtmosphereGallery';
+import EventsSection from './components/EventsSection';
 import Link from 'next/link';
-import { Star, Utensils, Wine, Clock } from 'lucide-react';
+import { UtensilsCrossed, Wine, Music } from 'lucide-react';
+import Reveal from './components/Reveal';
 
 export default function Home() {
   return (
     <>
       <Hero />
 
-      {/* Quick Features - chiaro in 5 secondi */}
-      <section className="py-12 bg-zinc-950 border-b border-white/5">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto text-center">
-            <div className="flex flex-col items-center gap-2">
-              <Utensils size={24} className="text-gold-500" />
-              <span className="text-xs md:text-sm text-gray-400">Kuzhinë Italiane</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Wine size={24} className="text-gold-500" />
-              <span className="text-xs md:text-sm text-gray-400">Verëra të Zgjedhura</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Clock size={24} className="text-gold-500" />
-              <span className="text-xs md:text-sm text-gray-400">Çdo Ditë 12-23</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience / Promo Section */}
-      <section className="py-20 md:py-28 bg-black">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 order-2 md:order-1">
-              <h2 className="text-3xl md:text-5xl font-serif text-white">
-                Pjata të kuruara me <span className="text-gold-500 italic">Pasion</span>
-              </h2>
-              <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-                Çdo pjatë në Bistro Tirana është një vepër arti. Ingredientë të freskët, receta tradicionale me një prekje moderne.
+      {/* Brand Essence */}
+      <section className="py-20 md:py-28 bg-night-950 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-night-900/50 to-transparent h-32 pointer-events-none" />
+        <div className="container mx-auto px-5">
+          <Reveal>
+            <div className="max-w-3xl mx-auto text-center">
+              <blockquote
+                className="text-2xl md:text-4xl lg:text-5xl font-light text-sand-100/80 italic leading-snug mb-6"
+                style={{ fontFamily: 'var(--font-cormorant)' }}
+              >
+                &ldquo;Where time slows down&rdquo;
+              </blockquote>
+              <p className="text-sand-400/40 text-sm md:text-base leading-relaxed max-w-lg mx-auto">
+                Nestled on the Adriatic shore, Port Side is a haven where Mediterranean flavors
+                meet barefoot luxury. Every detail crafted for those who savor the slow life.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link
-                  href="/menu"
-                  className="text-gold-500 border border-gold-500 px-6 py-3 uppercase tracking-widest text-sm hover:bg-gold-500 hover:text-black transition-all text-center"
-                >
-                  Shiko Menunë
-                </Link>
-                <Link
-                  href="/rezervo"
-                  className="text-white border border-white/30 px-6 py-3 uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-all text-center"
-                >
-                  Rezervo Tani
-                </Link>
-              </div>
             </div>
-            <div className="relative order-1 md:order-2">
-              <div className="grid grid-cols-2 gap-3 md:gap-4">
-                <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
-                  <Image
-                    src="/menu-item-1.png"
-                    alt="Burrata & Prosciutto"
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Quick Features */}
+      <section className="py-12 md:py-16 bg-night-950 border-y border-sand-900/8">
+        <div className="container mx-auto px-5">
+          <Reveal>
+            <div className="grid grid-cols-3 gap-4 md:gap-12 max-w-3xl mx-auto text-center">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-10 h-10 md:w-12 md:h-12 border border-sand-400/15 flex items-center justify-center">
+                  <UtensilsCrossed size={18} className="text-sand-400/60" />
                 </div>
-                <div className="relative aspect-[3/4] rounded-lg overflow-hidden translate-y-8">
-                  <Image
-                    src="/menu-item-3.png"
-                    alt="Tagliata Viçi"
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
+                <div>
+                  <span className="font-accent text-[0.6rem] md:text-xs tracking-[0.15em] uppercase text-sand-200/50 block">
+                    Small Plates
+                  </span>
+                  <span className="text-sand-400/30 text-[0.55rem] md:text-xs mt-0.5 block">
+                    Mediterranean tapas
+                  </span>
                 </div>
               </div>
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-10 h-10 md:w-12 md:h-12 border border-sand-400/15 flex items-center justify-center">
+                  <Wine size={18} className="text-sand-400/60" />
+                </div>
+                <div>
+                  <span className="font-accent text-[0.6rem] md:text-xs tracking-[0.15em] uppercase text-sand-200/50 block">
+                    Craft Cocktails
+                  </span>
+                  <span className="text-sand-400/30 text-[0.55rem] md:text-xs mt-0.5 block">
+                    Signature mixes
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-10 h-10 md:w-12 md:h-12 border border-sand-400/15 flex items-center justify-center">
+                  <Music size={18} className="text-sand-400/60" />
+                </div>
+                <div>
+                  <span className="font-accent text-[0.6rem] md:text-xs tracking-[0.15em] uppercase text-sand-200/50 block">
+                    Live Music
+                  </span>
+                  <span className="text-sand-400/30 text-[0.55rem] md:text-xs mt-0.5 block">
+                    Every weekend
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section className="py-16 md:py-20 bg-zinc-950">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-serif text-white mb-3">
-              Galeria <span className="text-gold-500 italic">Jonë</span>
-            </h2>
-            <p className="text-gray-500 text-sm">Pamje nga kuzhina dhe ambienti</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            <div className="relative aspect-square rounded-lg overflow-hidden group">
-              <Image
-                src="/menu-item-1.png"
-                alt="Piatti Bistro Tirana"
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700"
-                sizes="(max-width: 768px) 50vw, 25vw"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+      {/* Menu Highlights */}
+      <MenuHighlights />
+
+      {/* Atmosphere Gallery */}
+      <AtmosphereGallery />
+
+      {/* Events Section */}
+      <EventsSection />
+
+      {/* Social Proof / Instagram */}
+      <section className="py-20 md:py-24 bg-night-900 border-t border-sand-900/8">
+        <div className="container mx-auto px-5 text-center">
+          <Reveal>
+            <div className="max-w-2xl mx-auto">
+              <p className="font-accent text-[0.65rem] tracking-[0.3em] uppercase text-sand-400/40 mb-6">
+                What people say
+              </p>
+              <blockquote
+                className="text-xl md:text-3xl font-light text-sand-100/70 italic leading-relaxed mb-6"
+                style={{ fontFamily: 'var(--font-cormorant)' }}
+              >
+                &ldquo;The most beautiful beach spot in Durres. Incredible food, even better vibes.
+                We keep coming back every summer.&rdquo;
+              </blockquote>
+              <p className="text-sand-400/30 text-sm mb-10">
+                &mdash; via Google Reviews
+              </p>
+
+              <a
+                href="https://instagram.com/portside.beach"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 text-sand-200/40 hover:text-sand-200 transition-colors group"
+              >
+                <span className="font-accent text-xs tracking-[0.15em] uppercase">Follow @portside.beach</span>
+                <span className="w-6 h-px bg-sand-400/20 group-hover:w-10 transition-all duration-300" />
+              </a>
             </div>
-            <div className="relative aspect-square rounded-lg overflow-hidden group">
-              <Image
-                src="/menu-item-2.png"
-                alt="Piatti Bistro Tirana"
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700"
-                sizes="(max-width: 768px) 50vw, 25vw"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
-            </div>
-            <div className="relative aspect-square rounded-lg overflow-hidden group">
-              <Image
-                src="/menu-item-3.png"
-                alt="Piatti Bistro Tirana"
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700"
-                sizes="(max-width: 768px) 50vw, 25vw"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
-            </div>
-            <div className="relative aspect-square rounded-lg overflow-hidden group">
-              <Image
-                src="/menu-item-4.png"
-                alt="Piatti Bistro Tirana"
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700"
-                sizes="(max-width: 768px) 50vw, 25vw"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
-            </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Reviews Section */}
-      <section className="py-20 md:py-24 bg-zinc-900 border-t border-white/5">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex justify-center gap-1 mb-6 text-gold-500">
-            <Star size={20} fill="currentColor" />
-            <Star size={20} fill="currentColor" />
-            <Star size={20} fill="currentColor" />
-            <Star size={20} fill="currentColor" />
-            <Star size={20} fill="currentColor" />
-          </div>
-          <p className="text-gold-500 text-sm uppercase tracking-widest mb-4">4.9 në Google Reviews</p>
-          <h3 className="text-xl md:text-3xl font-serif text-white mb-6 max-w-2xl mx-auto leading-relaxed">
-            &ldquo;Ushqim i shkëlqyer dhe shërbim fantastik. Vendi ideal për një darkë romantike në Tiranë.&rdquo;
-          </h3>
-          <p className="text-gray-500 text-sm mb-10">— Arta M.</p>
+      {/* Reservation CTA */}
+      <section className="relative py-24 md:py-32 bg-night-950 overflow-hidden">
+        {/* Ambient glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-sand-400/[0.03] rounded-full blur-[100px] pointer-events-none" />
 
-          <a
-            href="https://google.com/maps"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-white border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all text-sm"
-          >
-            <Star size={16} />
-            <span>Lini një recensione</span>
-          </a>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-zinc-950">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">
-            Gati për një <span className="text-gold-500 italic">përvojë</span> të veçantë?
-          </h2>
-          <p className="text-gray-400 mb-8 max-w-md mx-auto">
-            Rezervoni tavolinën tuaj online në vetëm disa sekonda.
-          </p>
-          <Link
-            href="/rezervo"
-            className="inline-block bg-gold-500 text-black px-10 py-4 uppercase tracking-widest font-bold text-sm hover:bg-gold-400 transition-all shadow-[0_0_30px_rgba(204,153,38,0.3)]"
-          >
-            Rezervo Tavolinë
-          </Link>
+        <div className="container mx-auto px-5 relative">
+          <Reveal>
+            <div className="text-center max-w-2xl mx-auto">
+              <h2
+                className="text-3xl md:text-5xl text-sand-50 font-light mb-4 leading-[1.15]"
+                style={{ fontFamily: 'var(--font-cormorant)' }}
+              >
+                Your table is <span className="italic text-sand-300">waiting</span>
+              </h2>
+              <p className="text-sand-400/40 text-sm md:text-base mb-10 max-w-md mx-auto">
+                Reserve your spot and let the sea breeze do the rest.
+                Open every day, 08:00 to midnight.
+              </p>
+              <Link
+                href="/rezervo"
+                className="inline-block bg-sand-400 text-night-950 px-12 py-4 uppercase font-accent tracking-[0.25em] text-xs hover:bg-sand-300 transition-all duration-300 animate-pulse-glow"
+              >
+                Reserve a Table
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

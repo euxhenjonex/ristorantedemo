@@ -1,76 +1,152 @@
-import Image from 'next/image';
+'use client';
+
 import Link from 'next/link';
-import { MapPin, Clock } from 'lucide-react';
+import Image from 'next/image';
+import { MapPin } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function Hero() {
-    return (
-        <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
-                <Image
-                    src="/hero.png"
-                    alt="Bistro Tirana Interior"
-                    fill
-                    className="object-cover"
-                    priority
-                    quality={85}
-                    sizes="100vw"
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAgEDBAMBAAAAAAAAAAAAAQIDAAQRBQYSIRMxQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABkRAAIDAQAAAAAAAAAAAAAAAAECAAMRIf/aAAwDAQACEQMRAD8A2rX9wRaXtq3sbSFoxMqSM7BWPNsKDxI+Drz1UqVKouTW1bs//9k="
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-            </div>
+  const [loaded, setLoaded] = useState(false);
 
-            {/* Content */}
-            <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center gap-6">
-                <h2 className="text-gold-400 text-sm md:text-base uppercase tracking-[0.3em] font-medium animate-fade-in-up">
-                    Ristorante në Tiranë
-                </h2>
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-tight animate-fade-in-up delay-100">
-                    Shije <span className="italic text-gold-500">Moderne</span> <br />
-                    Atmosferë <span className="italic text-gold-500">Unike</span>
-                </h1>
+  return (
+    <section className="relative h-[100dvh] min-h-[600px] flex items-center justify-center overflow-hidden bg-night-950">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/menu-item-1.png"
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-auto min-w-full object-cover"
+        >
+          <source src="/video hero.mp4" type="video/mp4" />
+        </video>
 
-                <p className="text-gray-200 text-base md:text-lg max-w-xl font-light leading-relaxed animate-fade-in-up delay-200">
-                    Kuzhinë italiane bashkëkohore në zemër të Tiranës.
-                </p>
+        {/* Dark vignette overlays for desktop (sides) */}
+        <div className="hidden md:block absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-night-950 via-night-950/80 to-transparent z-[1]" />
+        <div className="hidden md:block absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-night-950 via-night-950/80 to-transparent z-[1]" />
 
-                {/* Quick Info Bar */}
-                <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-300 animate-fade-in-up delay-200">
-                    <div className="flex items-center gap-2">
-                        <MapPin size={16} className="text-gold-500" />
-                        <span>Rruga Myslym Shyri</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <Clock size={16} className="text-gold-500" />
-                        <span>12:00 - 23:00</span>
-                    </div>
-                </div>
+        {/* Top-to-bottom gradient for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-night-950/70 via-transparent to-night-950/90 z-[2]" />
+        {/* Extra bottom gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-night-950 to-transparent z-[2]" />
+      </div>
 
-                <div className="flex flex-col md:flex-row gap-4 mt-6 animate-fade-in-up delay-300 w-full md:w-auto">
-                    <Link
-                        href="/rezervo"
-                        className="group relative px-10 py-4 bg-gold-500 text-black uppercase tracking-widest font-bold text-sm overflow-hidden transition-all hover:bg-gold-400 w-full md:w-auto text-center shadow-[0_0_30px_rgba(204,153,38,0.4)] hover:shadow-[0_0_40px_rgba(204,153,38,0.6)] hover:scale-105"
-                    >
-                        <span className="relative z-10">Rezervo Tavolinë</span>
-                    </Link>
+      {/* Content */}
+      <div className="relative z-10 text-center px-6 max-w-3xl mx-auto flex flex-col items-center gap-5">
+        {/* Logo */}
+        <div
+          className="transition-all duration-1000 ease-out flex flex-col items-center"
+          style={{
+            opacity: loaded ? 1 : 0,
+            transform: loaded ? 'translateY(0)' : 'translateY(20px)',
+          }}
+        >
+          <Image
+            src="/logo-portside.png"
+            alt="Port Side Beach"
+            width={100}
+            height={100}
+            className="w-20 h-20 md:w-24 md:h-24 mb-5"
+            priority
+          />
+          <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-light tracking-[0.15em] text-sand-50 leading-[0.95]"
+            style={{ fontFamily: 'var(--font-cormorant)' }}
+          >
+            PORT SIDE
+          </h1>
+          <div className="flex items-center justify-center gap-3 mt-1">
+            <span className="h-px w-8 bg-sand-400/50" />
+            <span className="font-accent text-[0.65rem] md:text-xs tracking-[0.4em] uppercase text-sand-400">
+              Beach
+            </span>
+            <span className="h-px w-8 bg-sand-400/50" />
+          </div>
+        </div>
 
-                    <Link
-                        href="/menu"
-                        className="group relative px-10 py-4 bg-transparent border-2 border-white text-white uppercase tracking-widest font-bold text-sm overflow-hidden transition-all hover:bg-white hover:text-black w-full md:w-auto text-center"
-                    >
-                        <span className="relative z-10">Shiko Menunë</span>
-                    </Link>
-                </div>
-            </div>
+        {/* Tagline */}
+        <h2
+          className="text-[clamp(1.25rem,3.5vw,2.25rem)] font-light text-sand-100/90 italic leading-snug mt-2"
+          style={{
+            fontFamily: 'var(--font-cormorant)',
+            opacity: loaded ? 1 : 0,
+            transform: loaded ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 1s ease-out 0.2s',
+          }}
+        >
+          Where time slows down
+        </h2>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-                <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
-                    <div className="w-1 h-2 bg-white/50 rounded-full" />
-                </div>
-            </div>
-        </section>
-    );
+        {/* Subtitle */}
+        <p
+          className="font-accent text-xs md:text-sm tracking-[0.25em] uppercase text-sand-300/70"
+          style={{
+            opacity: loaded ? 1 : 0,
+            transform: loaded ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 1s ease-out 0.35s',
+          }}
+        >
+          Boho taste, seaside soul
+        </p>
+
+        {/* Location badge */}
+        <div
+          className="flex items-center gap-2 text-sand-200/50 text-xs tracking-wider mt-1"
+          style={{
+            opacity: loaded ? 1 : 0,
+            transition: 'opacity 1s ease-out 0.5s',
+          }}
+        >
+          <MapPin size={12} />
+          <span>Rruga Currila, Durr&#235;s</span>
+        </div>
+
+        {/* CTAs */}
+        <div
+          className="flex flex-col sm:flex-row gap-3 mt-6 w-full sm:w-auto"
+          style={{
+            opacity: loaded ? 1 : 0,
+            transform: loaded ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 1s ease-out 0.55s',
+          }}
+        >
+          <Link
+            href="/rezervo"
+            className="group relative px-10 py-4 bg-sand-400 text-night-950 uppercase tracking-[0.2em] font-medium text-xs overflow-hidden transition-all duration-300 hover:bg-sand-300 hover:shadow-[0_0_40px_rgba(184,155,106,0.25)] text-center"
+          >
+            Reserve a Table
+          </Link>
+
+          <Link
+            href="/menu"
+            className="px-10 py-4 border border-sand-200/20 text-sand-100 uppercase tracking-[0.2em] text-xs transition-all duration-300 hover:border-sand-400/50 hover:text-sand-50 text-center backdrop-blur-sm"
+          >
+            View Menu
+          </Link>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        style={{
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 1.5s ease-out 1s',
+        }}
+      >
+        <span className="font-accent text-[0.6rem] tracking-[0.3em] uppercase text-sand-400/40">
+          Scroll
+        </span>
+        <div className="w-px h-8 relative overflow-hidden">
+          <div className="w-full h-full bg-sand-400/30 animate-scroll-hint" />
+        </div>
+      </div>
+    </section>
+  );
 }

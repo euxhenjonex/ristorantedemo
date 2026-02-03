@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Cormorant_Garamond, Josefin_Sans } from 'next/font/google';
 import './globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,15 +11,29 @@ const inter = Inter({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  variable: '--font-playfair', // Use this for headers if needed
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-cormorant',
+  display: 'swap',
+});
+
+const josefin = Josefin_Sans({
+  subsets: ['latin'],
+  weight: ['200', '300', '400'],
+  variable: '--font-josefin',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Bistro Tirana - Shije Moderne',
-  description: 'Restorant elegant në qendër të Tiranës. Kuzhinë moderne dhe atmosferë unike.',
+  title: 'Port Side Beach | Where Time Slows Down',
+  description: 'Premium beach lounge in Durres, Albania. Small plates, craft cocktails, and live music where the Adriatic meets the shore.',
+  openGraph: {
+    title: 'Port Side Beach | Where Time Slows Down',
+    description: 'Premium beach lounge in Durres, Albania. Small plates, craft cocktails, and live music.',
+    type: 'website',
+    locale: 'en_US',
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sq" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${inter.variable} ${cormorant.variable} ${josefin.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
